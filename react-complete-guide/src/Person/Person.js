@@ -7,7 +7,7 @@ const person = props => {
         I'm {props.name} and I'm {props.age} years old
         <p>{props.children}</p>
       </p>
-    <div/>
+    </div>
   );
 };
 
