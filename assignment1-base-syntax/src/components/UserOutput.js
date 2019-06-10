@@ -1,10 +1,12 @@
 import React from "react";
+import "./UserOutput.css";
 
-const UserOutput = () => {
+const UserOutput = props => {
+  console.log(props);
   return (
-    <div>
-      <p>Para 1</p>
-      <p>Para 2</p>
+    <div className="UserOutput">
+      <p>This will be overwritten</p>
+      <p>Username: {props.username}</p>
     </div>
   );
 };

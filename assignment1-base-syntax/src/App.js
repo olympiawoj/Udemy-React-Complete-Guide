@@ -4,11 +4,40 @@ import UserInput from "./components/UserInput.js";
 import UserOutput from "./components/UserOutput";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ""
+    };
+  }
+
+  handleChanges = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  clickNameHandler = newUsername => {
+    console.log("click");
+    this.setState({
+      username: newUsername
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <UserInput />
-        <UserOutput />
+        <UserInput
+          handleChanges={this.handleChanges}
+          click={this.clickNameHandler}
+        />
+
+        <UserOutput username={this.state.username} />
+        <UserOutput
+          username={this.state.username}
+          // click={this.clickNameHandler.bind(this, "Olympia")}
+        />
+        <UserOutput username="Olympia" />
 
         <ol>
           <li>Create TWO new components: UserInput and UserOutput</li>

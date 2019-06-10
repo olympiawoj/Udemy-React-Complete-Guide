@@ -1,32 +1,26 @@
-import React from "react";
+import React from "react"; //required bc JSX code you return in the end is turned into React.CreateElement
 
 //http://cheng.logdown.com/posts/2016/03/26/683329
 //https://medium.com/@etherealm/super-vs-super-props-in-react-class-components-58658af6ecf2
 
-class UserInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputUserName: ""
-    };
-  }
-
-  handleChanges = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+const UserInput = props => {
+  //inline styles equal to an object
+  const style = {
+    border: "2px solid red"
   };
 
-  render() {
-    return (
+  return (
+    <div>
       <input
+        style={style}
         type="text"
-        value={this.state.inputUserName}
-        name="inputUserName"
-        onChange={this.handleChanges}
+        value={props.inputUserName}
+        name="username"
+        onChange={props.handleChanges}
       />
-    );
-  }
-}
+      <button onClick={props.click}>Submit Name</button>
+    </div>
+  );
+};
 
 export default UserInput;
