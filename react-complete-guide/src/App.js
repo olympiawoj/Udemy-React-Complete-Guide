@@ -5,9 +5,9 @@ import Person from "./Person/Person";
 class App extends Component {
   state = {
     persons: [
-      { name: "Max", age: 28 },
-      { name: "Manu", age: 29 },
-      { name: "Stephanie", age: 26 }
+      { id: "1231", name: "Max", age: 28 },
+      { id: "2321", name: "Manu", age: 29 },
+      { id: "665", name: "Stephanie", age: 26 }
     ],
     otherState: "some other value",
     showPersons: false
@@ -22,13 +22,28 @@ class App extends Component {
     this.setState({ persons: persons });
   };
 
-  nameChangeHandler = event => {
+  nameChangeHandler = (event, id) => {
+    //1) Find the Person into which input field we typed, I get person as an input, then I get function body. I return true or false depending on whether this was the element/Person I was looking for
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    //2) Get the Person itself by reaching out to this.state.persons and accessing the Person
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    //3) Update the Person’s name
+    person.name = event.target.value;
+
+    //4) Update the array at position I've fetched - first get persons array with spread operator, then update it at one position
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    //5) Set state equal to this updated persons array, which is a copy of the old array where we updated 1 element with the updated person where we adjusted the name
     this.setState({
-      persons: [
-        { name: "Max", age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: "Stephanie", age: 27 }
-      ]
+      persons: persons
     });
   };
 
@@ -54,9 +69,11 @@ class App extends Component {
           {this.state.persons.map((person, index) => {
             return (
               <Person
-                name={person.name}
                 age={person.age}
                 click={() => this.deletePersonHandler(index)}
+                key={person.id}
+                name={person.name}
+                changed={event => this.nameChangeHandler(event, person.id)}
               />
             );
           })}
