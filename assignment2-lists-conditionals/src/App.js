@@ -13,6 +13,10 @@ class App extends Component {
   };
 
   render() {
+    const charList = this.state.input.split("").map(ch => {
+      return <CharComponent character={ch} />;
+    });
+
     return (
       <div className="App">
         <input
@@ -21,10 +25,12 @@ class App extends Component {
           value={this.state.input}
           onChange={this.handleChanges}
         />
+        <p>{this.state.input}</p>
         <p>{this.state.input.length}</p>
         <ValidationComponent input={this.state.input} />
-        <CharComponent input={this.state.input} />
+        {charList}
 
+        <hr />
         <ol>
           <li>
             Create an input field (in App component) with a change listener
