@@ -12,10 +12,18 @@ class App extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  deleteChar = (event, charIndex) => {
+    const input = [...this.state.input];
+    console.log(input);
+    input.splice(charIndex, 1);
+
+    this.setState({ input: input.join("") });
+  };
+
   render() {
-    const charList = this.state.input.split("").map(ch => {
-      return <CharComponent character={ch} />;
-    });
+    // const charList = this.state.input.split("").map(ch => {
+    //   return <CharComponent character={ch} />;
+    // });
 
     return (
       <div className="App">
@@ -28,8 +36,8 @@ class App extends Component {
         <p>{this.state.input}</p>
         <p>{this.state.input.length}</p>
         <ValidationComponent input={this.state.input} />
-        {charList}
-
+        {/* {charList} */}
+        <CharComponent input={this.state.input} deleteChar={this.deleteChar} />
         <hr />
         <ol>
           <li>

@@ -9,16 +9,20 @@ const CharComponent = props => {
     border: "1px solid black"
   };
 
-  // let input = null;
-  // if (props.input.length > 0) {
-  //   let inputArr = props.input.split();
-  //   console.log(inputArr);
-  //   input = inputArr.map(char => {
-  //     return <p>{char}</p>;
-  //   });
-  // }
+  let input = null;
+  if (props.input.length > 0) {
+    let inputArr = props.input.split("");
+    console.log(inputArr);
+    input = inputArr.map((char, index) => {
+      return (
+        <div style={style} index={index} onClick={props.deleteChar}>
+          {char}
+        </div>
+      );
+    });
+  }
 
-  return <div style={style}>{props.character}</div>;
+  return <div>{input}</div>;
 };
 
 export default CharComponent;
