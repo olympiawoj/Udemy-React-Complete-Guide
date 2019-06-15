@@ -14,9 +14,8 @@ class App extends Component {
   };
 
   deletePersonHandler = personIndex => {
-    // const persons = this.state.persons.slice();
-    const persons = [...this.state.persons];
     //create new version of persons array
+    const persons = [...this.state.persons];
     //removes 1 element from array
     persons.splice(personIndex, 1);
     this.setState({ persons: persons });
@@ -32,7 +31,6 @@ class App extends Component {
     const person = {
       ...this.state.persons[personIndex]
     };
-    // const person = Object.assign({}, this.state.persons[personIndex]);
 
     //3) Update the Person’s name
     person.name = event.target.value;
@@ -53,17 +51,9 @@ class App extends Component {
   };
 
   render() {
-    //defining inline styles
-    const style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer"
-    };
-
     let persons = null;
+    let btnClass = null;
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -80,12 +70,11 @@ class App extends Component {
           })}
         </div>
       );
-      //ovverride bg color
-      style.backgroundColor = "red";
+      //classes.Red returns a string, valid CSS
+      btnClass = classes.Red;
     }
 
     //turns array of string into 1 string
-    //valid CSS class list
     const assignedClasses = [];
     if (this.state.persons.length <= 2) {
       assignedClasses.push(classes.red); //classes red
@@ -95,13 +84,11 @@ class App extends Component {
       assignedClasses.push(classes.bold); //classes red +bold
     }
 
-    // let classes = ["red", "bold"].join(" ");
-
     return (
       <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
         <p className={assignedClasses.join(" ")}>This is working</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
         {persons}
