@@ -4,6 +4,10 @@ import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log("[App.js] constructor running");
+  }
   state = {
     persons: [
       { id: "1231", name: "Max", age: 28 },
@@ -13,6 +17,15 @@ class App extends Component {
     otherState: "some other value",
     showPersons: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("[App.js] getDerivedStateFromProps running", props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log("[App.js] componentDidMount running ");
+  }
 
   deletePersonHandler = personIndex => {
     //create new version of persons array
@@ -52,6 +65,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("[App.js] render running");
     let persons = null;
 
     if (this.state.showPersons) {
@@ -70,7 +84,7 @@ class App extends Component {
           title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
-          clicked={this.togglePersonsHandlers}
+          clicked={this.togglePersonsHandler}
         />
 
         {persons}
