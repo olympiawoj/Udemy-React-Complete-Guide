@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import classes from "./App.css";
 import Person from "./Person/Person";
 
 class App extends Component {
@@ -14,9 +14,8 @@ class App extends Component {
   };
 
   deletePersonHandler = personIndex => {
-    // const persons = this.state.persons.slice();
-    const persons = [...this.state.persons];
     //create new version of persons array
+    const persons = [...this.state.persons];
     //removes 1 element from array
     persons.splice(personIndex, 1);
     this.setState({ persons: persons });
@@ -32,7 +31,6 @@ class App extends Component {
     const person = {
       ...this.state.persons[personIndex]
     };
-    // const person = Object.assign({}, this.state.persons[personIndex]);
 
     //3) Update the Person’s name
     person.name = event.target.value;
@@ -53,16 +51,9 @@ class App extends Component {
   };
 
   render() {
-    //defining inline styles
-    const style = {
-      backgroundColor: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer"
-    };
-
     let persons = null;
+    let btnClass = null;
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -79,13 +70,25 @@ class App extends Component {
           })}
         </div>
       );
+      //classes.Red returns a string, valid CSS
+      btnClass = classes.Red;
+    }
+
+    //turns array of string into 1 string
+    const assignedClasses = [];
+    if (this.state.persons.length <= 2) {
+      assignedClasses.push(classes.red); //classes red
+    }
+
+    if (this.state.persons.length <= 1) {
+      assignedClasses.push(classes.bold); //classes red +bold
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p>This is working</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <p className={assignedClasses.join(" ")}>This is working</p>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
         {persons}
