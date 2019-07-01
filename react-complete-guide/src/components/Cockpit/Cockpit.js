@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Cockpit.css";
 
 const Cockpit = props => {
+  //this will run for EVERY re-render of Cockpit
+  useEffect(() => {
+    console.log("Cockpit.js useEffect running");
+  });
+
   //turns array of string into 1 string
   const assignedClasses = [];
   //set btnClass to empty - imp for adding red class and setting approp styling

@@ -27,6 +27,16 @@ class App extends Component {
     console.log("[App.js] componentDidMount running ");
   }
 
+  componentDidUpdate() {
+    console.log("[App.js] componentDidUpdate running");
+  }
+
+  //must return either true or false, true allows update
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("[App.js] shouldComponentUpdate");
+    return true;
+  }
+
   deletePersonHandler = personIndex => {
     //create new version of persons array
     const persons = [...this.state.persons];
