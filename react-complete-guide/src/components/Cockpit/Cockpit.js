@@ -5,6 +5,20 @@ const Cockpit = props => {
   //this will run for EVERY re-render of Cockpit
   useEffect(() => {
     console.log("Cockpit.js useEffect running");
+    //run HTTP close
+    setTimeout(() => {
+      alert("saved data to cloud!");
+    }, 1000);
+    return () => {
+      console.log("Cockpit.js cleanup work in userEffect ");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("Cockpit.js 2nd useEffect running");
+    return () => {
+      console.log("Cockpit.js 2nd cleanup work in userEffect ");
+    };
   });
 
   //turns array of string into 1 string
