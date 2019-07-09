@@ -18,7 +18,8 @@ class App extends Component {
     ],
     otherState: "some other value",
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -67,8 +68,11 @@ class App extends Component {
     persons[personIndex] = person;
 
     //5) Set state equal to this updated persons array, which is a copy of the old array where we updated 1 element with the updated person where we adjusted the name
-    this.setState({
-      persons: persons
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
     });
   };
 
