@@ -19,7 +19,7 @@ class NewPost extends Component {
     };
 
     axios
-      .post("https://jsonplaceholder.typicode.com/posts/", post)
+      .post("/posts", post)
       //this runs asynchronously
       .then(res => console.log(res))
       .catch(err => console.log(err));
