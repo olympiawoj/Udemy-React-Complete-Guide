@@ -10,6 +10,10 @@ class NewPost extends Component {
     author: "Max"
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   postDataHandler = () => {
     //this is a JS object but axios auto stringifies this, turns into JSON data
     const post = {
