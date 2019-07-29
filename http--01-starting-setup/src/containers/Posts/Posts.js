@@ -10,6 +10,7 @@ class Posts extends Component {
   };
 
   componentDidMount() {
+    //console.logging our props- the props object & history, location, & match
     console.log(this.props);
     axios
       .get("/posts")
@@ -43,6 +44,9 @@ class Posts extends Component {
             author={post.author}
             //holds method reference, id passed to Fullpost component
             clicked={() => this.postSelectedHandler(post.id)}
+            //passing props down from Posts to Post component
+            // {...this.props}
+            // match={this.props.match}
             key={post.id}
             title={post.title}
           />
