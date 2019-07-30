@@ -8,16 +8,16 @@ class FullPost extends Component {
     loadedPost: ""
   };
 
-  componentDidUpdate() {
+  componentDidMount() {
     //we only want to send this request if id is NOT Null i.e. its valid
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       //if we NO loaded posts OR if we do have one but ids are different
       if (
         !this.state.loadedPost ||
         this.state.loadedPost.id !== this.props.id
       ) {
         axios
-          .get("/posts/" + this.props.id)
+          .get("/posts/" + this.props.match.params.id)
           .then(res => {
             this.setState({
               loadedPost: res.data
