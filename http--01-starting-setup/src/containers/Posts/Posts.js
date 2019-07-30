@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "../../axios";
+import { Link } from "react-router-dom";
 
 import Post from "../../components/Post/Post";
 import "./Posts.css";
@@ -40,16 +41,18 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map(post => {
         return (
-          <Post
-            author={post.author}
-            //holds method reference, id passed to Fullpost component
-            clicked={() => this.postSelectedHandler(post.id)}
-            //passing props down from Posts to Post component
-            // {...this.props}
-            // match={this.props.match}
-            key={post.id}
-            title={post.title}
-          />
+          <Link to={"/" + post.id} key={post.id}>
+            <Post
+              author={post.author}
+              //holds method reference, id passed to Fullpost component
+              clicked={() => this.postSelectedHandler(post.id)}
+              //passing props down from Posts to Post component
+              // {...this.props}
+              // match={this.props.match}
+              key={post.id}
+              title={post.title}
+            />
+          </Link>
         );
       });
     }
