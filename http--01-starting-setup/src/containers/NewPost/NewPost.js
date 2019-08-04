@@ -29,7 +29,8 @@ class NewPost extends Component {
       //this runs asynchronously
       .then(res => {
         console.log(res);
-        this.setState({ submitted: true });
+        this.props.history.push("/posts");
+        // this.props.history.replace("/posts");
       })
       .catch(err => console.log(err));
   };
