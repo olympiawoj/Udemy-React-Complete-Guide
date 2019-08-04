@@ -10,11 +10,20 @@ class FullPost extends Component {
 
   componentDidMount() {
     //we only want to send this request if id is NOT Null i.e. its valid
+    console.log(this.props);
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData() {
     if (this.props.match.params.id) {
       //if we NO loaded posts OR if we do have one but ids are different
       if (
         !this.state.loadedPost ||
-        this.state.loadedPost.id !== this.props.id
+        this.state.loadedPost.id !== +this.props.match.params.id
       ) {
         axios
           .get("/posts/" + this.props.match.params.id)
@@ -31,7 +40,7 @@ class FullPost extends Component {
   deletePostHandler = () => {
     //also takes a URL, target a specific post w/ it.
     axios
-      .delete("/posts/" + this.props.id)
+      .delete("/posts/" + this.props.match.params.id)
       .then(response => {
         console.log(response);
       })
@@ -42,7 +51,7 @@ class FullPost extends Component {
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
     //initally returns false. if it returns true, output the post.
 
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       post = <p style={{ textAlign: "center" }}>Loading!</p>;
     }
     //if iwe did this.props.id here, we get a valid prop BEFORE we get a loadedPost because fetching data is asynchronous
