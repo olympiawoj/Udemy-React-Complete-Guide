@@ -6,11 +6,21 @@ import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 // import Post from "../../components/Post/Post";
 import "./Blog.css";
 
+//informs webpack about dependency and it includes it in the global bundle. for lazy loading, this is the exact oppy of what we want to do
 import Posts from "../Posts/Posts";
-import NewPost from "../NewPost/NewPost";
+import asyncComponent from "../../hoc/asyncComponent";
+//import NewPost from "../NewPost/NewPost";
+
+//asyncComponent requires an arg, this arg should be an anon arrow function
+//dynamic import syntax- w/e comes between parenthesis is only imported when the function is executed
+//function is only executed once we render AsyncNewPost to the screen.
+const AsyncNewPost = asyncComponent(() => {
+  return import("../NewPost/NewPost");
+});
+
 class Blog extends Component {
   state = {
-    auth: false
+    auth: true
   };
   render() {
     return (
@@ -50,10 +60,12 @@ class Blog extends Component {
 
         <Switch>
           {this.state.auth ? (
-            <Route path="/new-post" component={NewPost} />
+            //changed this to AsyncNewPost - eventually this will be a component b/c AsyncComponent returns a component - we have an HOC - it returns a class w/ a render method
+            <Route path="/new-post" component={AsyncNewPost} />
           ) : null}
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to="/posts" />
+          <Route render={() => <h1>Not found</h1>} />
+          {/* <Redirect from="/" to="/posts" /> */}
           {/* <Route path="/" component={Posts} /> */}
         </Switch>
       </div>
