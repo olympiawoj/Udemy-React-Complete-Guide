@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 import Courses from "./containers/Courses/Courses";
+import Course from "./containers/Course/Course";
 import Users from "./containers/Users/Users";
+import NoMatch from "./components/NoMatch/NoMatch";
 
 class App extends Component {
   render() {
@@ -38,16 +40,25 @@ class App extends Component {
           <nav>
             <ul style={{ listStyle: "none", margin: "auto", padding: "0" }}>
               <li style={{ margin: "10px", display: "inline-block" }}>
-                <Link to="/courses"> Course</Link>
+                <NavLink to="/courses" activeClassName="selectedLink">
+                  Course
+                </NavLink>
               </li>
               <li style={{ margin: "10px", display: "inline-block" }}>
-                <Link to="/users">Users</Link>
+                <NavLink to="/users" activeClassName="selectedLink">
+                  Users
+                </NavLink>
               </li>
             </ul>
           </nav>
         </ol>
-        <Route path="/courses" component={Courses}></Route>
-        <Route path="/users" component={Users}></Route>
+        <Switch>
+          <Route path="/users" component={Users}></Route>
+          {/* <Route path="/courses/:courseId" component={Course}></Route> */}
+          <Route path="/courses" component={Courses}></Route>
+          <Redirect from="/all-courses" to="/courses"></Redirect>
+          <Route component={NoMatch}></Route>
+        </Switch>
       </div>
     );
   }
