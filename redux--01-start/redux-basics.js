@@ -42,7 +42,12 @@ const rootReducer = (state = initialState, action) => {
 const store = createStore(rootReducer)
 console.log(store.getState())
 
-
+//8 - Subscription -Subscription makes sure I dont have to manually call getState() to gte current state snapshot but to inform me that I need to get state b/c it changed. Create subscription by accessing store and running subscribe method. The function we pass to subscrube takes an empty function and then we can execute anything we want
+//Now I know I need to getState b/c in subscribed.
+//We do subscribtino after state is created so we're aware of any future dispatches - subscription is triggered whenever an action  is dispatched - it gets trigger whenever state is updated
+store.subscribe(() => {
+    console.log('Subscription', store.getState())
+})
 
 //6 - Dispatching Action. An action is dispatched by access the store and calling dispatch, a function which takes an argument - an action - a Javascript object which needs to have a type property, you can also pass some optional payload
 store.dispatch({ type: "INC_COUNTER" })
@@ -50,4 +55,3 @@ store.dispatch({ type: "ADD_COUNTER", value: 10 })
 //State will now be 0 - counter 0 twice. First is from first console.log statement. Second stems from this console.log - when we dispatched our actions. We still have counter of 0. 
 console.log(store.getState())
 
-//Subscription
